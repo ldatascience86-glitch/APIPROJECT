@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Scientific Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="calculator">
+            <div class="display-section">
+                <div class="history-display" id="historyDisplay"></div>
+                <div class="main-display" id="mainDisplay">0</div>
+                <div class="angle-mode">
+                    <button class="mode-btn active" data-mode="deg">DEG</button>
+                    <button class="mode-btn" data-mode="rad">RAD</button>
+                    <button class="mode-btn" data-mode="grad">GRAD</button>
+                </div>
+            </div>
+            
+            <div class="buttons-section">
+                <!-- Memory and Clear Functions -->
+                <div class="button-row">
+                    <button class="btn memory" onclick="memoryClear()">MC</button>
+                    <button class="btn memory" onclick="memoryRecall()">MR</button>
+                    <button class="btn memory" onclick="memoryAdd()">M+</button>
+                    <button class="btn memory" onclick="memorySubtract()">M-</button>
+                    <button class="btn function" onclick="clearAll()">C</button>
+                    <button class="btn function" onclick="clearEntry()">CE</button>
+                    <button class="btn function" onclick="backspace()">⌫</button>
+                    <button class="btn operator" onclick="setOperation('/')">÷</button>
+                </div>
+                
+                <!-- Scientific Functions Row 1 -->
+                <div class="button-row">
+                    <button class="btn scientific" onclick="calculateFunction('sin')">sin</button>
+                    <button class="btn scientific" onclick="calculateFunction('cos')">cos</button>
+                    <button class="btn scientific" onclick="calculateFunction('tan')">tan</button>
+                    <button class="btn scientific" onclick="calculateFunction('log')">log</button>
+                    <button class="btn scientific" onclick="calculateFunction('ln')">ln</button>
+                    <button class="btn scientific" onclick="calculateFunction('sqrt')">√</button>
+                    <button class="btn scientific" onclick="calculateFunction('x2')">x²</button>
+                    <button class="btn operator" onclick="setOperation('*')">×</button>
+                </div>
+                
+                <!-- Scientific Functions Row 2 -->
+                <div class="button-row">
+                    <button class="btn scientific" onclick="calculateFunction('asin')">sin⁻¹</button>
+                    <button class="btn scientific" onclick="calculateFunction('acos')">cos⁻¹</button>
+                    <button class="btn scientific" onclick="calculateFunction('atan')">tan⁻¹</button>
+                    <button class="btn scientific" onclick="calculateFunction('exp')">exp</button>
+                    <button class="btn scientific" onclick="calculateFunction('pow')">xʸ</button>
+                    <button class="btn scientific" onclick="calculateFunction('factorial')">n!</button>
+                    <button class="btn scientific" onclick="calculateFunction('abs')">|x|</button>
+                    <button class="btn operator" onclick="setOperation('-')">−</button>
+                </div>
+                
+                <!-- Scientific Functions Row 3 -->
+                <div class="button-row">
+                    <button class="btn scientific" onclick="calculateFunction('sinh')">sinh</button>
+                    <button class="btn scientific" onclick="calculateFunction('cosh')">cosh</button>
+                    <button class="btn scientific" onclick="calculateFunction('tanh')">tanh</button>
+                    <button class="btn scientific" onclick="calculateFunction('pi')">π</button>
+                    <button class="btn scientific" onclick="calculateFunction('e')">e</button>
+                    <button class="btn scientific" onclick="calculateFunction('rand')">RND</button>
+                    <button class="btn scientific" onclick="calculateFunction('mod')">mod</button>
+                    <button class="btn operator" onclick="setOperation('+')">+</button>
+                </div>
+                
+                <!-- Numbers and Basic Operations -->
+                <div class="button-row">
+                    <button class="btn number" onclick="appendNumber('7')">7</button>
+                    <button class="btn number" onclick="appendNumber('8')">8</button>
+                    <button class="btn number" onclick="appendNumber('9')">9</button>
+                    <button class="btn number" onclick="appendNumber('0')">0</button>
+                    <button class="btn number" onclick="appendDecimal()">.</button>
+                    <button class="btn scientific" onclick="calculateFunction('percent')">%</button>
+                    <button class="btn scientific" onclick="calculateFunction('inverse')">1/x</button>
+                    <button class="btn equals" onclick="calculate()">=</button>
+                </div>
+                
+                <!-- Additional Scientific Functions -->
+                <div class="button-row">
+                    <button class="btn scientific" onclick="calculateFunction('floor')">⌊x⌋</button>
+                    <button class="btn scientific" onclick="calculateFunction('ceil')">⌈x⌉</button>
+                    <button class="btn scientific" onclick="calculateFunction('round')">round</button>
+                    <button class="btn scientific" onclick="calculateFunction('sign')">±</button>
+                    <button class="btn scientific" onclick="calculateFunction('cube')">x³</button>
+                    <button class="btn scientific" onclick="calculateFunction('cbrt')">∛x</button>
+                    <button class="btn scientific" onclick="calculateFunction('reciprocal')">1/x</button>
+                    <button class="btn scientific" onclick="calculateFunction('tenPower')">10ˣ</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-panel">
+            <h3>Scientific Calculator</h3>
+            <p>Features:</p>
+            <ul>
+                <li>Trigonometric functions (sin, cos, tan)</li>
+                <li>Inverse trigonometric functions</li>
+                <li>Hyperbolic functions</li>
+                <li>Logarithmic functions</li>
+                <li>Exponential functions</li>
+                <li>Power and root functions</li>
+                <li>Factorial and statistical functions</li>
+                <li>Memory functions</li>
+                <li>Angle modes (DEG, RAD, GRAD)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="calculator.js"></script>
+</body>
+</html>

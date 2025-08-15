@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+        
+        .demo-header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .demo-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .examples-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .examples-section h2 {
+            color: #212529;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .example-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .example-card h3 {
+            color: #007bff;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .example-card p {
+            color: #495057;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .example-formula {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            color: #495057;
+            margin: 10px 0;
+        }
+        
+        .calculator-demo {
+            margin-bottom: 30px;
+        }
+        
+        .demo-instructions {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .demo-instructions h2 {
+            color: #212529;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .instruction-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .instruction-list li {
+            background: #f8f9fa;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            color: #495057;
+        }
+        
+        .instruction-list li strong {
+            color: #212529;
+        }
+        
+        @media (max-width: 768px) {
+            .demo-header h1 {
+                font-size: 2rem;
+            }
+            
+            .example-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>🧮 Scientific Calculator</h1>
+            <p>Professional-grade scientific calculator with all mathematical functions</p>
+        </div>
+        
+        <div class="calculator-demo">
+            <div class="calculator-container">
+                <div class="calculator">
+                    <div class="display-section">
+                        <div class="history-display" id="historyDisplay"></div>
+                        <div class="main-display" id="mainDisplay">0</div>
+                        <div class="angle-mode">
+                            <button class="mode-btn active" data-mode="deg">DEG</button>
+                            <button class="mode-btn" data-mode="rad">RAD</button>
+                            <button class="mode-btn" data-mode="grad">GRAD</button>
+                        </div>
+                    </div>
+                    
+                    <div class="buttons-section">
+                        <!-- Memory and Clear Functions -->
+                        <div class="button-row">
+                            <button class="btn memory" onclick="memoryClear()">MC</button>
+                            <button class="btn memory" onclick="memoryRecall()">MR</button>
+                            <button class="btn memory" onclick="memoryAdd()">M+</button>
+                            <button class="btn memory" onclick="memorySubtract()">M-</button>
+                            <button class="btn function" onclick="clearAll()">C</button>
+                            <button class="btn function" onclick="clearEntry()">CE</button>
+                            <button class="btn function" onclick="backspace()">⌫</button>
+                            <button class="btn operator" onclick="setOperation('/')">÷</button>
+                        </div>
+                        
+                        <!-- Scientific Functions Row 1 -->
+                        <div class="button-row">
+                            <button class="btn scientific" onclick="calculateFunction('sin')">sin</button>
+                            <button class="btn scientific" onclick="calculateFunction('cos')">cos</button>
+                            <button class="btn scientific" onclick="calculateFunction('tan')">tan</button>
+                            <button class="btn scientific" onclick="calculateFunction('log')">log</button>
+                            <button class="btn scientific" onclick="calculateFunction('ln')">ln</button>
+                            <button class="btn scientific" onclick="calculateFunction('sqrt')">√</button>
+                            <button class="btn scientific" onclick="calculateFunction('x2')">x²</button>
+                            <button class="btn operator" onclick="setOperation('*')">×</button>
+                        </div>
+                        
+                        <!-- Scientific Functions Row 2 -->
+                        <div class="button-row">
+                            <button class="btn scientific" onclick="calculateFunction('asin')">sin⁻¹</button>
+                            <button class="btn scientific" onclick="calculateFunction('acos')">cos⁻¹</button>
+                            <button class="btn scientific" onclick="calculateFunction('atan')">tan⁻¹</button>
+                            <button class="btn scientific" onclick="calculateFunction('exp')">exp</button>
+                            <button class="btn scientific" onclick="calculateFunction('pow')">xʸ</button>
+                            <button class="btn scientific" onclick="calculateFunction('factorial')">n!</button>
+                            <button class="btn scientific" onclick="calculateFunction('abs')">|x|</button>
+                            <button class="btn operator" onclick="setOperation('-')">−</button>
+                        </div>
+                        
+                        <!-- Scientific Functions Row 3 -->
+                        <div class="button-row">
+                            <button class="btn scientific" onclick="calculateFunction('sinh')">sinh</button>
+                            <button class="btn scientific" onclick="calculateFunction('cosh')">cosh</button>
+                            <button class="btn scientific" onclick="calculateFunction('tanh')">tanh</button>
+                            <button class="btn scientific" onclick="calculateFunction('pi')">π</button>
+                            <button class="btn scientific" onclick="calculateFunction('e')">e</button>
+                            <button class="btn scientific" onclick="calculateFunction('rand')">RND</button>
+                            <button class="btn scientific" onclick="calculateFunction('mod')">mod</button>
+                            <button class="btn operator" onclick="setOperation('+')">+</button>
+                        </div>
+                        
+                        <!-- Numbers and Basic Operations -->
+                        <div class="button-row">
+                            <button class="btn number" onclick="appendNumber('7')">7</button>
+                            <button class="btn number" onclick="appendNumber('8')">8</button>
+                            <button class="btn number" onclick="appendNumber('9')">9</button>
+                            <button class="btn number" onclick="appendNumber('0')">0</button>
+                            <button class="btn number" onclick="appendDecimal()">.</button>
+                            <button class="btn scientific" onclick="calculateFunction('percent')">%</button>
+                            <button class="btn scientific" onclick="calculateFunction('inverse')">1/x</button>
+                            <button class="btn equals" onclick="calculate()">=</button>
+                        </div>
+                        
+                        <!-- Additional Scientific Functions -->
+                        <div class="button-row">
+                            <button class="btn scientific" onclick="calculateFunction('floor')">⌊x⌋</button>
+                            <button class="btn scientific" onclick="calculateFunction('ceil')">⌈x⌉</button>
+                            <button class="btn scientific" onclick="calculateFunction('round')">round</button>
+                            <button class="btn scientific" onclick="calculateFunction('sign')">±</button>
+                            <button class="btn scientific" onclick="calculateFunction('cube')">x³</button>
+                            <button class="btn scientific" onclick="calculateFunction('cbrt')">∛x</button>
+                            <button class="btn scientific" onclick="calculateFunction('reciprocal')">1/x</button>
+                            <button class="btn scientific" onclick="calculateFunction('tenPower')">10ˣ</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-panel">
+                    <h3>Try These Examples!</h3>
+                    <p>Click the buttons to see the calculator in action:</p>
+                    <ul>
+                        <li>Enter 30, then click "sin"</li>
+                        <li>Click "π" to see the value of pi</li>
+                        <li>Enter 5, then click "x²"</li>
+                        <li>Click "RND" for a random number</li>
+                        <li>Enter 10, then click "n!" for factorial</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="examples-section">
+            <h2>📚 Mathematical Examples</h2>
+            <div class="example-grid">
+                <div class="example-card">
+                    <h3>Trigonometric Functions</h3>
+                    <p>Calculate sine, cosine, and tangent values:</p>
+                    <div class="example-formula">sin(30°) = 0.5</div>
+                    <div class="example-formula">cos(60°) = 0.5</div>
+                    <div class="example-formula">tan(45°) = 1</div>
+                    <p><strong>How to:</strong> Enter angle, click trig function</p>
+                </div>
+                
+                <div class="example-card">
+                    <h3>Logarithmic Functions</h3>
+                    <p>Natural and base-10 logarithms:</p>
+                    <div class="example-formula">log(100) = 2</div>
+                    <div class="example-formula">ln(e) = 1</div>
+                    <div class="example-formula">exp(1) = 2.718</div>
+                    <p><strong>How to:</strong> Enter number, click log function</p>
+                </div>
+                
+                <div class="example-card">
+                    <h3>Power and Roots</h3>
+                    <p>Square, cube, and nth powers:</p>
+                    <div class="example-formula">5² = 25</div>
+                    <div class="example-formula">√16 = 4</div>
+                    <div class="example-formula">2³ = 8</div>
+                    <p><strong>How to:</strong> Enter base, click power function</p>
+                </div>
+                
+                <div class="example-card">
+                    <h3>Advanced Functions</h3>
+                    <p>Factorial, absolute value, and more:</p>
+                    <div class="example-formula">5! = 120</div>
+                    <div class="example-formula">|-7| = 7</div>
+                    <div class="example-formula">⌈3.2⌉ = 4</div>
+                    <p><strong>How to:</strong> Enter number, click function</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-instructions">
+            <h2>🎯 How to Use</h2>
+            <ul class="instruction-list">
+                <li><strong>Basic Operations:</strong> Enter numbers and use +, -, ×, ÷ operators for simple arithmetic</li>
+                <li><strong>Scientific Functions:</strong> Enter a number first, then click the scientific function button</li>
+                <li><strong>Memory Functions:</strong> Use MC (clear), MR (recall), M+ (add), M- (subtract) to store values</li>
+                <li><strong>Angle Modes:</strong> Switch between degrees, radians, and gradians using the mode buttons</li>
+                <li><strong>Keyboard Support:</strong> Use your keyboard for faster input (numbers, operators, Enter, Escape)</li>
+                <li><strong>History:</strong> View your last 3 calculations in the history display above the main display</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="calculator.js"></script>
+</body>
+</html>
